@@ -1,0 +1,49 @@
+package br.com.inforgames.mercadinho.servico;
+
+import static org.mockito.Mockito.verify;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import br.com.inforgames.mercadinho.model.Cliente;
+import br.com.inforgames.mercadinho.servico.dao.ClienteService;
+import br.com.inforgames.mercadinho.servico.impl.ClienteServiceImpl;
+import br.com.inforgames.mercadinho.servico.repository.ClienteRepository;
+
+@RunWith(SpringRunner.class)
+public class ClienteServiceTest {
+
+	private static final String CPF = "12345678912";
+	private static final String NOME = "Maycon Santana";
+	private static final String EMAIL = "mrs_2000@hotmail.com";
+	private static final String TELEFONE = "99-99999-9999";
+
+	@MockBean
+	private ClienteRepository clienteRepository;
+
+	private ClienteService cli;
+
+	private Cliente cliente;
+
+	@Before
+	public void setUp() throws Exception {
+		cli = new ClienteServiceImpl(clienteRepository);
+
+		cliente = new Cliente();
+		cliente.setNome(NOME);
+		cliente.setCpf(CPF);
+		cliente.setEmail(EMAIL);
+		cliente.setTelefone(TELEFONE);
+
+	}
+
+	@Test
+	public void deve_salvar_cliente_no_repositorio() throws Exception {
+		cli.salvar(cliente);
+		
+		verify(clienteRepository).save(cliente);
+	}
+}
