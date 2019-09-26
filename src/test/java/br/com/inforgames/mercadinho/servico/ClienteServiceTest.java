@@ -1,6 +1,9 @@
 package br.com.inforgames.mercadinho.servico;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.inforgames.mercadinho.model.Cliente;
 import br.com.inforgames.mercadinho.servico.dao.ClienteService;
+import br.com.inforgames.mercadinho.servico.exception.UnicidadeCpfException;
 import br.com.inforgames.mercadinho.servico.impl.ClienteServiceImpl;
 import br.com.inforgames.mercadinho.servico.repository.ClienteRepository;
 
@@ -38,12 +42,20 @@ public class ClienteServiceTest {
 		cliente.setEmail(EMAIL);
 		cliente.setTelefone(TELEFONE);
 
+		when(clienteRepository.findByCpf(CPF)).thenReturn(Optional.empty());
 	}
 
 	@Test
 	public void deve_salvar_cliente_no_repositorio() throws Exception {
 		cli.salvar(cliente);
-		
+
 		verify(clienteRepository).save(cliente);
+	}
+
+	@Test(expected = UnicidadeCpfException.class)
+	public void nao_deve_salvar_dois_clientes_com_o_mesmo_cpf() throws Exception {
+		when(clienteRepository.findByCpf(CPF)).thenReturn(Optional.of(cliente));
+
+		cli.salvar(cliente);
 	}
 }
