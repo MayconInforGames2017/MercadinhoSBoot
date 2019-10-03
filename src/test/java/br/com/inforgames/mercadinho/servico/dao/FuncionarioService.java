@@ -6,5 +6,7 @@ import br.com.inforgames.mercadinho.servico.exception.UnicidadeCpfException;
 public interface FuncionarioService {
 
 	Funcionario salvar(Funcionario funcionario) throws UnicidadeCpfException;
+	
+	Funcionario buscarPorCpf(String cpf);
 
 }

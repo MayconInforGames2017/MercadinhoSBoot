@@ -1,5 +1,6 @@
 package br.com.inforgames.mercadinho.servico;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -57,5 +58,18 @@ public class FuncionarioServiceTest {
 		when(funcionarioRepostitory.findByCpf(CPF)).thenReturn(Optional.of(funcionario));
 
 		fun.salvar(funcionario);
+	}
+	
+	public void deve_procurar_cliente_pelo_cpf() throws Exception {
+		when(funcionarioRepostitory.findByBuscarPorCpf(CPF)).thenReturn(Optional.of(funcionario));
+
+		Funcionario funcionarioTeste = fun.buscarPorCpf(CPF);
+
+		verify(funcionarioRepostitory).findByBuscarPorCpf(CPF);
+
+		assertThat(funcionarioTeste).isNotNull();
+		assertThat(funcionarioTeste.getNome()).isEqualTo(NOME);
+		assertThat(funcionarioTeste.getCpf()).isEqualTo(CPF);
+
 	}
 }

@@ -9,5 +9,7 @@ public interface FuncionarioRepository {
 	Funcionario save(Funcionario funcionario);
 
 	Optional<Funcionario> findByCpf(String cpf);
+	
+	Optional<Funcionario> findByBuscarPorCpf(String cpf);
 
 }

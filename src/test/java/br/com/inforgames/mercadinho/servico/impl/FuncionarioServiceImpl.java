@@ -25,4 +25,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 		return funcionarioRepository.save(funcionario);
 	}
 
+	@Override
+	public Funcionario buscarPorCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return funcionarioRepository.findByBuscarPorCpf(cpf).get();
+	}
+
 }
