@@ -26,4 +26,10 @@ public class ClienteServiceImpl implements ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
+	@Override
+	public Cliente buscarPorNome(String nome) {
+		// TODO Auto-generated method stubget
+		return clienteRepository.findBybuscarPorNome(nome).get();
+	}
+
 }

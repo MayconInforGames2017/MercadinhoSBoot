@@ -7,4 +7,6 @@ public interface ClienteService {
 
 	Cliente salvar(Cliente cliente) throws UnicidadeCpfException;
 
+	Cliente buscarPorNome(String nome);
+
 }

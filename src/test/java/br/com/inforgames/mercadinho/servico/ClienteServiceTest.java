@@ -1,5 +1,6 @@
 package br.com.inforgames.mercadinho.servico;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.inforgames.mercadinho.model.Cliente;
 import br.com.inforgames.mercadinho.servico.dao.ClienteService;
+import br.com.inforgames.mercadinho.servico.exception.ClienteNaoEncontradoException;
 import br.com.inforgames.mercadinho.servico.exception.UnicidadeCpfException;
 import br.com.inforgames.mercadinho.servico.impl.ClienteServiceImpl;
 import br.com.inforgames.mercadinho.servico.repository.ClienteRepository;
@@ -59,5 +61,17 @@ public class ClienteServiceTest {
 		cli.salvar(cliente);
 	}
 
+	@Test
+	public void deve_procurar_cliente_pelo_nome() throws Exception {
+		when(clienteRepository.findBybuscarPorNome(NOME)).thenReturn(Optional.of(cliente));
+
+		Cliente clienteTeste = cli.buscarPorNome(NOME);
+
+		verify(clienteRepository).findBybuscarPorNome(NOME);
+
+		assertThat(clienteTeste).isNotNull();
+		assertThat(clienteTeste.getNome()).isEqualTo(NOME);
+		assertThat(clienteTeste.getCpf()).isEqualTo(CPF);
+	}
 
 }

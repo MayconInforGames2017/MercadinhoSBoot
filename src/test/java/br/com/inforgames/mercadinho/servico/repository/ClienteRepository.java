@@ -10,4 +10,6 @@ public interface ClienteRepository {
 
 	Optional<Cliente> findByCpf(String cpf);
 
+	Optional<Cliente> findBybuscarPorNome(String nome);
+
 }
