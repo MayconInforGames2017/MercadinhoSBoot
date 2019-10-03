@@ -18,11 +18,12 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public Cliente salvar(Cliente cliente) throws UnicidadeCpfException {
 		Optional<Cliente> optional = clienteRepository.findByCpf(cliente.getCpf());
-		
+
 		if (optional.isPresent()) {
 			throw new UnicidadeCpfException();
 		}
 
 		return clienteRepository.save(cliente);
 	}
+
 }
