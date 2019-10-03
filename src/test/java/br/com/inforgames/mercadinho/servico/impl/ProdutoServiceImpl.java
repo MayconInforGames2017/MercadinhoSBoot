@@ -26,4 +26,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
+	@Override
+	public Produto buscarPorNome(String nome) {
+		// TODO Auto-generated method stub
+		return produtoRepository.findByBuscarPorNome(nome).get();
+	}
+
 }

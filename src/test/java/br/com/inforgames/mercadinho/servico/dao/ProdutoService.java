@@ -4,7 +4,9 @@ import br.com.inforgames.mercadinho.model.Produto;
 import br.com.inforgames.mercadinho.servico.exception.UnicidadeNomeException;
 
 public interface ProdutoService {
-	
+
 	Produto salvar(Produto produto) throws UnicidadeNomeException;
+
+	Produto buscarPorNome(String nome);
 
 }

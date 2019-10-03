@@ -10,4 +10,6 @@ public interface ProdutoRepository {
 
 	Optional<Produto> findByNome(String nome);
 
+	Optional<Produto> findByBuscarPorNome(String nome);
+
 }

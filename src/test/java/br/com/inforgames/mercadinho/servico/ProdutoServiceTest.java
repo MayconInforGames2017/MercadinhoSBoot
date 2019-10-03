@@ -1,5 +1,6 @@
 package br.com.inforgames.mercadinho.servico;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -62,4 +63,15 @@ public class ProdutoServiceTest {
 		prod.salvar(produto);
 	}
 
+	@Test
+	public void deve_procurar_produto_pelo_nome() throws Exception {
+		when(produtoRepository.findByBuscarPorNome(NOME)).thenReturn(Optional.of(produto));
+		
+		Produto produtoTeste = prod.buscarPorNome(NOME);
+		
+		verify(produtoRepository).findByBuscarPorNome(NOME);
+		
+		assertThat(produtoTeste).isNotNull();
+		assertThat(produtoTeste.getNome()).isEqualTo(NOME);
+	}
 }
