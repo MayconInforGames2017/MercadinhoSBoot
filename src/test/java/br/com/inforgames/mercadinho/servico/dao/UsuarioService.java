@@ -6,5 +6,6 @@ import br.com.inforgames.mercadinho.servico.exception.UnicidadeEmailException;
 public interface UsuarioService {
 
 	Usuario salvar(Usuario usuario) throws UnicidadeEmailException;
-	
+
+	Usuario buscarPorEmail(String email);
 }

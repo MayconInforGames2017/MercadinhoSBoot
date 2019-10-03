@@ -10,4 +10,6 @@ public interface UsuarioRepository {
 
 	Optional<Usuario> findByEmail(String email);
 
+	Optional<Usuario> findByBuscarPorEmail(String email);
+
 }

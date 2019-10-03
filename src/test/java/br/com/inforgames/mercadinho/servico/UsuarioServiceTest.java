@@ -1,5 +1,6 @@
 package br.com.inforgames.mercadinho.servico;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -56,4 +57,15 @@ public class UsuarioServiceTest {
 		usu.salvar(usuario);
 	}
 
+	@Test
+	public void deve_procurar_usuario_por_email() throws Exception {
+		when(usuarioRepository.findByBuscarPorEmail(EMAIL)).thenReturn(Optional.of(usuario));
+
+		Usuario usuarioTeste = usu.buscarPorEmail(EMAIL);
+
+		verify(usuarioRepository).findByBuscarPorEmail(EMAIL);
+
+		assertThat(usuarioTeste).isNotNull();
+		assertThat(usuarioTeste.getEmail()).isEqualTo(EMAIL);
+	}
 }
