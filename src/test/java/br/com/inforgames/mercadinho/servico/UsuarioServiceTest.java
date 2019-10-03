@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.inforgames.mercadinho.model.Usuario;
 import br.com.inforgames.mercadinho.servico.dao.UsuarioService;
+import br.com.inforgames.mercadinho.servico.exception.UnicidadeEmailException;
 import br.com.inforgames.mercadinho.servico.impl.UsuarioServiceImpl;
 import br.com.inforgames.mercadinho.servico.repository.UsuarioRepository;
 
@@ -48,7 +49,8 @@ public class UsuarioServiceTest {
 		verify(usuarioRepository).save(usuario);
 	}
 
-	public void nao_deve_salvar_usuario_no_repositorio() throws Exception {
+	@Test(expected = UnicidadeEmailException.class)
+	public void nao_deve_salvar_usuario_no_repositorio_com_mesmo_email() throws Exception {
 		when(usuarioRepository.findByEmail(EMAIL)).thenReturn(Optional.of(usuario));
 
 		usu.salvar(usuario);
